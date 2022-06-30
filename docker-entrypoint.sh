@@ -51,7 +51,6 @@ if [ "$1" = 'redis-cluster' ]; then
 
     for port in $(seq $INITIAL_PORT $max_port); do
       if [ -z "$RESET_DATA" -o "$RESET_DATA" = "true" ]; then
-        echo "clear data"
         if [ -e /redis-data/${port}/nodes.conf ]; then
           rm /redis-data/${port}/nodes.conf
         fi
