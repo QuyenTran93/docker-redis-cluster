@@ -4,19 +4,19 @@ FROM redis@sha256:e422889e156ebea83856b6ff973bfe0c86bce867d80def228044eeecf92559
 LABEL maintainer="Johan Andersson <Grokzen@gmail.com>"
 
 # Some Environment Variables
-ENV HOME /root
-ENV DEBIAN_FRONTEND noninteractive
+ENV HOME=/root
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -yqq \
-      net-tools supervisor ruby rubygems locales gettext-base wget gcc make g++ build-essential libc6-dev tcl && \
+      net-tools supervisor ruby rubygems locales locales-all gettext-base wget gcc make g++ build-essential libc6-dev tcl && \
     apt-get clean -yqq
 
 # # Ensure UTF-8 lang and locale
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 RUN locale-gen en_US.UTF-8
-ENV LANG       en_US.UTF-8
-ENV LC_ALL     en_US.UTF-8
 
 # Necessary for gem installs due to SHA1 being weak and old cert being revoked
 ENV SSL_CERT_FILE=/usr/local/etc/openssl/cert.pem

@@ -69,12 +69,18 @@ if [ "$1" = 'redis-cluster' ]; then
       	protectedmode="protected-mode no"
       fi
 
+
+      if [ -n "$CLUSTER_ANNOUNCE_HOSTNAME" ]; then
+        clusterannouncehostname="cluster-announce-hostname '${CLUSTER_ANNOUNCE_HOSTNAME}'"
+        clusterpreferedendpointtype="cluster-preferred-endpoint-type hostname"
+      fi
+
       if [ "$port" -lt "$first_standalone" ]; then
         if [ -n "$PASSWORD" ]; then
           requirepass="requirepass '${PASSWORD}'"
           masterauth="masterauth '${PASSWORD}'"
         fi
-        PORT=${port} BIND_ADDRESS=${BIND_ADDRESS} REQUIREPASS=${requirepass} MASTERAUTH=${masterauth} PROTECTED_MODE=${protectedmode} envsubst < /redis-conf/redis-cluster.tmpl > /redis-conf/${port}/redis.conf
+        PORT=${port} BIND_ADDRESS=${BIND_ADDRESS} REQUIREPASS=${requirepass} MASTERAUTH=${masterauth} PROTECTED_MODE=${protectedmode} CLUSTER_ANNOUNCE_HOSTNAME=${clusterannouncehostname} CLUSTER_PREFERED_ENDPOINT_TYPE=${clusterpreferedendpointtype} envsubst < /redis-conf/redis-cluster.tmpl > /redis-conf/${port}/redis.conf
         nodes="$nodes $IP:$port"
       else
         if [ -n "$PASSWORD" ]; then

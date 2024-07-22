@@ -208,6 +208,14 @@ This is configurable by an enviroment variable that specifies which a password s
 | -------------------- | ------------------------------------------ |
 | `PASSWORD`           | "" (requirepass/masterauth not configured) |
 
+## Announced hostname
+By default, no announced hostname is set.
+This is configurable by an enviroment variable that specifies which show hostname as additional metadata in the CLUSTER SLOTS command. This valus is communicated along the clusterbus to all nodes, setting it to an empty string will remove the hostname and also propagate the removal.
+
+| Environment variable | Default                                    |
+| -------------------- | ------------------------------------------ |
+| `CLUSTER_ANNOUNCE_HOSTNAME`           | "" (empty announced hostname) |
+
 ## Protected mode
 By default, Protected mode is enabled.
 This is configurable by an enviroment variable that specifies which the system administator can still ignore the error given by Redis and just disable protected mode or manually bind all the interfaces.
