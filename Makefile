@@ -10,6 +10,9 @@ help:
 build:
 	docker-compose build
 
+build-tls:
+	docker-compose -f docker-compose.tls.yml build
+
 up:
 	docker-compose up
 
